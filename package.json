@@ -4,7 +4,8 @@
   "description": "A single repo for all my Advert of Code solution",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node index"
   },
   "author": "me",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "typescript": "^5.6.3"
   },
   "dependencies": {
+    "commander": "^12.1.0",
     "fs": "^0.0.1-security"
   }
 }
