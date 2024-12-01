@@ -1,6 +1,16 @@
 {
+  "name": "adventofcode",
+  "version": "1.0.0",
+  "description": "A single repo for all my Advert of Code solution",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "me",
+  "license": "ISC",
   "devDependencies": {
     "@types/node": "^22.10.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
   "dependencies": {
