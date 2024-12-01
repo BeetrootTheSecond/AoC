@@ -35,4 +35,13 @@ leftList.forEach((location, index) => {
 // get the total disance
 let totalDistance = listDiffences.reduce((total, distance) => { return total + distance; }, 0);
 console.log(`Star One : ${totalDistance} `);
+// Star Two 
+// create similarity score 
+let similarityScores = [];
+leftList.forEach(location => {
+    let appearsInRightList = rightList.filter(value => value == location);
+    similarityScores.push(location * appearsInRightList.length);
+});
+let totalSimilarityScore = similarityScores.reduce((total, score) => { return total + score; }, 0);
+console.log(`Star Two : ${totalSimilarityScore} `);
 //# sourceMappingURL=day1.js.map

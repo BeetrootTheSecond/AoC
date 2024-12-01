@@ -1,7 +1,7 @@
 import path, { dirname } from 'path';
 import fs from 'fs';
 
-const runSample = false ;
+const runSample = false;
 
 //import the data into 2 arrays 
 console.log(__dirname)
@@ -51,3 +51,19 @@ leftList.forEach((location,index) => {
 let totalDistance = listDiffences.reduce((total,distance) => { return total+ distance},0); 
 
 console.log(`Star One : ${totalDistance} `);
+
+// Star Two 
+
+// create similarity score 
+let similarityScores:number[]= [];
+
+leftList.forEach(location =>{
+    let appearsInRightList = rightList.filter(value => value== location);
+
+    similarityScores.push( location * appearsInRightList.length);
+    
+})
+
+let totalSimilarityScore = similarityScores.reduce((total,score) => { return total + score},0); 
+
+console.log(`Star Two : ${totalSimilarityScore} `);
