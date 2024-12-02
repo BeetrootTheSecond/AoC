@@ -6,7 +6,7 @@ import * as y2024 from './source/2024';
 
 const program = new Command();
 
-program.command('test')
+program.command('adventofcode')
     .description('')
     .addArgument(new Argument('<year>', 'Year').choices(['2024']))
     .addArgument(new Argument('<day>', 'Day').choices(([...new Array(25)].map((_, i) => (i + 1).toString()))))
