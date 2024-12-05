@@ -1,13 +1,9 @@
 export const day3 = (data: string[], part: string )=> {
-
-
     //console.log(data); 
     // /mul\(\d?\d?\d,\d?\d?\d\)/gm
     // /don't\(\)|do\(\)|mul\(\d?\d?\d,\d?\d?\d\)/gm
     let regResults = data.map(memoryRow => [...memoryRow.matchAll(/don't\(\)|do\(\)|mul\(\d?\d?\d,\d?\d?\d\)/gm)]).flat();
     console.log(regResults.length);
-
-    //let multipledData = regResults.map(result => [...result[0].matchAll(/\d?\d?\d/gm)].map(foundInt => parseInt(foundInt[0])))
 
     if(part == '1'){
         let multipledData = regResults.filter(result => result[0].match(/mul\(\d?\d?\d,\d?\d?\d\)/gm) != null)
@@ -35,18 +31,10 @@ export const day3 = (data: string[], part: string )=> {
                 let value = foundValue[0] * foundValue[1];
                 total += value;
             }
-
-
-            
         }
-        
         console.log(`Star 2 Result : ${total} `);
 
         return;
-
-
-
-
 };
 
 // bad result 190233294 to high
