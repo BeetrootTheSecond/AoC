@@ -1,16 +1,4 @@
 
-function checkPagePosition(page: number[], PoR: Record<number, Array<number>>, index: number) {
-  let pageRules = PoR[page[index]];
-
-
-
-
-
-
-
-  return;
-}
-
 export const day5 = (data: string[], part: string) => {
   //split data into array of  page ordering rules and pages to produce
   let splitIndex = data.indexOf("");
@@ -30,10 +18,10 @@ export const day5 = (data: string[], part: string) => {
   let correctPagesMiddles: number[] = [];
 
 
+  let incorrectPageUpdates = [];
+
   for (let i = 0; i < PoP.length; i++) {
     const page = PoP[i];
-    const correct = true;
-
 
     let pageCorrect = page.every((pageRef, index, pageSet) => {
       let pageRules = PoR[pageRef] || [];
@@ -44,7 +32,7 @@ export const day5 = (data: string[], part: string) => {
       let beforeCheck = pageRules.every(pR => !beforePage.includes(pR));
       //let afterCheck = pageRules.some(pR => afterPage.includes(pR));
 
-      console.log(`pageRef ${pageRef} : ${beforeCheck}`);
+      //console.log(`pageRef ${pageRef} : ${beforeCheck}`);
 
       return beforeCheck;
     })
@@ -52,24 +40,72 @@ export const day5 = (data: string[], part: string) => {
 
     if (pageCorrect) {
       correctPagesMiddles.push(page[Math.floor(page.length / 2)]);
-      console.log(correctPagesMiddles);
-
+      //console.log(correctPagesMiddles);
+    } else {
+      incorrectPageUpdates.push(page);
     }
 
 
 
 
-    console.log(page);
-    console.log(`Correct ${pageCorrect}`);
+    //console.log(page);
+    //console.log(`Correct ${pageCorrect}`);
   }
 
   if (part == "1") {
-    let starOnTotal = correctPagesMiddles.reduce((total, p) => total += p);
+    let starOneTotal = correctPagesMiddles.reduce((total, p) => total += p);
 
-    console.log(`Star 1 Result : ${starOnTotal} `);
+    console.log(`Star 1 Result : ${starOneTotal} `);
     return;
   }
 
-  console.log(`Star 2 Result : `);
+
+  let newlyCorrectedPages: number[] = [];
+
+
+  let reOrderedPageUpdates = incorrectPageUpdates.map((pages) => {
+
+    for (let index = 0; index < pages.length; index++) {
+
+      const pageChecker = (pages: number[], index: number) => {
+        const pageRef = pages[index];
+        const pageRules = PoR[pageRef] || [];
+
+
+        let beforePage = pages.slice(0, index);
+        let afterPage = pages.slice(index + 1);
+
+        //let afterCheck = afterPage.some(pR => pageRules.includes(pR));
+        let beforeCheck = pageRules.every(pR => !beforePage.includes(pR));
+
+        if (!beforeCheck) {
+          [pages[index], pages[index - 1]] = [pages[index - 1], pages[index]];
+
+          pages = pageChecker(pages, index - 1);
+
+        }
+        return pages;
+
+      }
+
+      pages = pageChecker(pages, index);
+
+
+    }
+
+
+    newlyCorrectedPages.push(pages[Math.floor(pages.length / 2)]);
+    console.log(pages);
+
+    return pages;
+  });
+
+
+
+
+
+  let starTwoTotal = newlyCorrectedPages.reduce((total, p) => total += p);
+
+  console.log(`Star 2 Result : ${starTwoTotal}`);
   return;
 };
