@@ -26,7 +26,11 @@ program.command('adventofcode')
 
         for(const [key, fn] of Object.entries(y2024)){
             if(key.replace("day","") == day){
+                const startTime = performance.now();
                 fn(data, part);
+                const endTime = performance.now();
+
+                console.log(`Year 2024,  Day ${day}, part ${part}, sample ${option.sample}  ${endTime - startTime} milliseconds`)   
                 break;
              }
         }

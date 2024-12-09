@@ -95,7 +95,7 @@ export const day5 = (data: string[], part: string) => {
 
 
     newlyCorrectedPages.push(pages[Math.floor(pages.length / 2)]);
-    console.log(pages);
+    //console.log(pages);
 
     return pages;
   });
