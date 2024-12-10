@@ -17,18 +17,23 @@ export const day7 = (data: string[], part: string) => {
     let allResults = mE.parameters.reduce((results, para, currentIndex) => {
       if (currentIndex == 0) {
         return [para];
-
       }
       let newResult: number[] = [];
       results.map(result => {
         newResult.push(result + para);
         newResult.push(result * para);
+
+        if (part == '2') {
+          if (currentIndex < mE.parameters.length) {
+            //let concat = parseInt(`${para}${mE.parameters[currentIndex + 1]}`);
+            //newResult.push(result + concat);
+            newResult.push(parseInt(`${result}${para}`));
+          }
+        }
       });
       return newResult;
     }, [] as Array<number>);
 
-
-    // console.log(allResults);
     if (allResults.filter((value) => value == mE.result).length >= 1) {
       return true;
     }
@@ -42,4 +47,8 @@ export const day7 = (data: string[], part: string) => {
     console.log(`Star 1 Result : ${starOneTotal} `);
     return;
   }
+
+  let starTwoTotal = trueEqueutions.reduce((total, val) => total += val.result, 0);
+  console.log(`Star 2 Result : ${starTwoTotal} `);
+  return;
 };
