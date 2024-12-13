@@ -1,20 +1,10 @@
 export const day8 = (data: string[], part: string) => {
   let mapLocation = data.map((row) => row.split(""));
 
-  //console.table(mapLocation);
-
   let antennas = mapLocation
-    .map((row, rowIndex) => {
-      let newAntennas = row.map((column, columnIndex) => {
-        if (column == ".") {
-          return;
-        }
-        return { freq: column, x: columnIndex, y: rowIndex };
-      });
-      return newAntennas;
-    })
+    .map((row, y) => row.map((freq, x) => ({ freq, x, y})))
     .flat()
-    .filter((a) => a != undefined)
+    .filter((a) => a.freq != '.')
     .reduce((mergeFreq, freq) => {
       mergeFreq[freq.freq]
         ? mergeFreq[freq.freq].push(freq)
@@ -22,13 +12,11 @@ export const day8 = (data: string[], part: string) => {
       return mergeFreq;
     }, {} as Record<string, Array<{ freq: string; x: number; y: number }>>);
 
-  console.table(antennas);
-
-  let allAnitnode = [];
+    let allAnitnode = [];
 
   for (let freq in antennas) {
     let anitnode = antennas[freq].map((node, index, allNodes) => {
-      let newAntinodes = allNodes.map((nextNode) => {
+      return allNodes.map((nextNode) => {
         if (node == nextNode) {
           return null;
         }
@@ -41,13 +29,8 @@ export const day8 = (data: string[], part: string) => {
           x: node.x - xDifference,
           y: node.y - yDifference,
         };
-      });
-
-      return newAntinodes.filter((node) => node != null);
-    });
-
-    let noneDulicapes = anitnode
-      .flat()
+      }).filter((node) => node != null);
+    }).flat()
       .filter(
         (aN) =>
           aN.x >= 0 &&
@@ -56,7 +39,7 @@ export const day8 = (data: string[], part: string) => {
           aN.y < mapLocation.length
       );
 
-    allAnitnode.push(...noneDulicapes);
+    allAnitnode.push(...anitnode);
   }
 
   let starOne = allAnitnode.reduce((uniqueNodes, node) => {
@@ -68,7 +51,7 @@ export const day8 = (data: string[], part: string) => {
   console.log(starOne.length);
 
   if (part == "1") {
-    console.log(`Star One : ${starOne.length} `);
+    console.log(`Star One : ${starOne.length}`);
     return;
   }
 };
