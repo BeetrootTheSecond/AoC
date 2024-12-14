@@ -33,7 +33,60 @@ export const day9 = (data: string[], part: string) => {
     }[])
 
 
-    console.log(fileSystem)
+    //console.log(fileSystem)
+
+    if (part == '1') {
+
+        for (let indexReserve = fileSystem.length - 1; indexReserve > 0; indexReserve--) {
+            const fileblockReserve = fileSystem[indexReserve];
+            if (fileblockReserve.value == '.') {
+                continue;
+            }
+
+            // let fileSystemState = fileSystem.reduce((output, block) => {
+            //     output = `${output}${block.value}`;
+
+            //     return output;
+            // }, '');
+
+            //console.log(fileSystemState);
+
+            let breakFlag = false;
+            // find just fs at the from begining
+            for (let index = 0; index < fileSystem.length - 1; index++) {
+                const fileblock = fileSystem[index];
+                if (index >= indexReserve) {
+                    breakFlag = true;
+                    break;
+                }
+                if (fileblock.value == '.') {
+
+                    [fileSystem[index], fileSystem[indexReserve]] = [fileSystem[indexReserve], fileSystem[index]];
+
+                    break;
+                }
+
+            }
+
+            if (breakFlag) {
+                break;
+            }
+
+
+        }
+
+        let starOne = fileSystem.reduce((total, fB, index) => {
+            if (fB.id != 'fs') {
+                total += (index * parseInt(fB.value));
+            }
+            return total;
+        }, 0 as number)
+
+
+
+        console.log(`Star One Result : ${starOne}`);
+        return;
+    }
 
     for (let indexReserve = fileSystem.length - 1; indexReserve > 0; indexReserve--) {
         const fileblockReserve = fileSystem[indexReserve];
@@ -41,13 +94,15 @@ export const day9 = (data: string[], part: string) => {
             continue;
         }
 
-        // let fileSystemState = fileSystem.reduce((output, block) => {
-        //     output = `${output}${block.value}`;
+        let fileSystemState = (currentFileSystem: {
+            id: string, value: string, fileCount: number
+        }[]) => currentFileSystem.reduce((output, block) => {
+            output = `${output}${block.value}`;
 
-        //     return output;
-        // }, '');
+            return output;
+        }, '');
 
-        //console.log(fileSystemState);
+        //console.log(fileSystemState(fileSystem));
 
         let breakFlag = false;
         // find just fs at the from begining
@@ -57,23 +112,49 @@ export const day9 = (data: string[], part: string) => {
                 breakFlag = true;
                 break;
             }
+
             if (fileblock.value == '.') {
 
-                [fileSystem[index], fileSystem[indexReserve]] = [fileSystem[indexReserve], fileSystem[index]];
+                // check if the next X files blocks 
+                let itFits = true;
+                for (let fC = 1; fC < fileSystem[indexReserve].fileCount; fC++) {
+                    let nextPos = index + fC;
 
+                    if (nextPos > fileSystem.length) {
+                        break;
+                    }
+                    if (fileSystem[nextPos].value != '.') {
+                        itFits = false;
+                        break;
+                    }
+
+                }
+
+                if (itFits) {
+                    let moveFileCount = fileSystem[indexReserve].fileCount;
+                    for (let fC = 0; fC < moveFileCount; fC++) {
+                        [fileSystem[index + fC], fileSystem[indexReserve - fC]] = [fileSystem[indexReserve - fC], fileSystem[index + fC]];
+                        //console.log(fileSystemState(fileSystem));
+                    }
+                    breakFlag = true;
+                    //break;
+                }
+
+
+
+                //break;
+            }
+            if (breakFlag) {
                 break;
             }
-
         }
 
-        if (breakFlag) {
-            break;
-        }
+
 
 
     }
 
-    let starOne = fileSystem.reduce((total, fB, index) => {
+    let starTwo = fileSystem.reduce((total, fB, index) => {
         if (fB.id != 'fs') {
             total += (index * parseInt(fB.value));
         }
@@ -81,9 +162,7 @@ export const day9 = (data: string[], part: string) => {
     }, 0 as number)
 
 
-    if (part == '1') {
-        console.log(`Star One Result : ${starOne}`);
-        return;
-    }
+
+    console.log(`Star Two Result : ${starTwo}`);
 
 }
