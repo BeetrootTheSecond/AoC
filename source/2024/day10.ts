@@ -6,6 +6,7 @@ interface topPos {
 interface trailHead extends topPos {
     height: number; x: number; y: number;
     score: number; topPoses: topPos[];
+    rating: number;
 
 }
 
@@ -47,14 +48,17 @@ export const day10 = (data: string[], part: string) => {
 
     const topographicMap: topPos[][] = data.map((line, y) => line.split('').map((cell, x) => ({ height: parseInt(cell), x, y })));
 
-    const trailHeads: trailHead[] = topographicMap.flat().filter(cell => cell.height == 0).map(topPos => ({ ...topPos, score: 0, topPoses: [] }));
+    const trailHeads: trailHead[] = topographicMap.flat().filter(cell => cell.height == 0).map(topPos => ({ ...topPos, score: 0, topPoses: [], rating: 0 }));
 
 
     trailHeads.map(trailHead => {
 
         trailHead.topPoses = checkNextPosition(topographicMap, topographicMap[trailHead.y][trailHead.x]);
-        let highPoints = Array.from(new Set(trailHead.topPoses.filter(pos => pos.height == 9).map(topPos => JSON.stringify(topPos)))).map(topPos => JSON.parse(topPos) as topPos)
+        let topOfTrails = trailHead.topPoses.filter(pos => pos.height == 9);
+        let highPoints = Array.from(new Set(topOfTrails.map(topPos => JSON.stringify(topPos)))).map(topPos => JSON.parse(topPos) as topPos);
+
         trailHead.score = highPoints.length;
+        trailHead.rating = topOfTrails.length;
         //console.log(trailHead);
     })
     //console.log(trailHeads);
@@ -69,5 +73,8 @@ export const day10 = (data: string[], part: string) => {
         return starOne;
     }
 
+    let starTwo = trailHeads.reduce((total, trailHead) => total += trailHead.rating, 0);
+    console.log(`Star One : ${starTwo}`);
 
+    return starTwo;
 }   
