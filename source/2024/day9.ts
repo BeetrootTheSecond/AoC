@@ -83,9 +83,7 @@ export const day9 = (data: string[], part: string) => {
         }, 0 as number)
 
 
-
-        console.log(`Star One Result : ${starOne}`);
-        return;
+        return starOne;
     }
 
     for (let indexReserve = fileSystem.length - 1; indexReserve > 0; indexReserve--) {
@@ -161,8 +159,6 @@ export const day9 = (data: string[], part: string) => {
         return total;
     }, 0 as number)
 
-
-
-    console.log(`Star Two Result : ${starTwo}`);
+    return starTwo;
 
 }

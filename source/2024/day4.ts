@@ -125,29 +125,29 @@ export const day4 = (data: string[], part: string) => {
       (wordData) => wordData.word.join() == searchWord.join()
     );
 
-    console.log(`Star 1 Result : ${filteredwordFound.length}`);
-    return;
+    //console.log(`Star 1 Result : ${filteredwordFound.length}`);
+    return filteredwordFound.length;
   }
 
   let wordFound = [];
-  for (let i = 1; i < wordSearchArray.length-1; i++) {
+  for (let i = 1; i < wordSearchArray.length - 1; i++) {
     const row = wordSearchArray[i];
-    for (let j = 1; j < row.length-1; j++) {
+    for (let j = 1; j < row.length - 1; j++) {
       const letter = row[j];
 
       if (letter == "A") {
         wordFound.push({
-          word1: 
+          word1:
             [
               checker(wordSearchArray[i - 1][j - 1]),
               checker(wordSearchArray[i][j]),
               checker(wordSearchArray[i + 1][j + 1]),
             ],
-            word2:  [
-              checker(wordSearchArray[i + 1][j - 1]),
-              checker(wordSearchArray[i][j]),
-              checker(wordSearchArray[i - 1][j + 1]),
-            ],
+          word2: [
+            checker(wordSearchArray[i + 1][j - 1]),
+            checker(wordSearchArray[i][j]),
+            checker(wordSearchArray[i - 1][j + 1]),
+          ],
           i,
           j,
         });
@@ -155,14 +155,14 @@ export const day4 = (data: string[], part: string) => {
     }
   }
 
-let searchWord2= ['MAS','SAM']
+  let searchWord2 = ['MAS', 'SAM']
 
   let filteredwordFound = wordFound.filter(
     (wordData) => searchWord2.includes(wordData.word1.join('')) && searchWord2.includes(wordData.word2.join(''))
   );
-  
-  console.log(`Star 2 Result : ${filteredwordFound.length}`);
-  return;
+
+  //console.log(`Star 2 Result : ${filteredwordFound.length}`);
+  return filteredwordFound.length;
 };
 
 

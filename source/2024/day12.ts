@@ -175,10 +175,10 @@ export const day12 = (data: string[], part: string) => {
 
   if (part == "1") {
     let starOne = starOneResult;
-    console.log(starOneResult);
+    //console.log(starOneResult);
     return starOne;
   }
   let starTwo = starTwoResult;
-  console.log(starTwoResult);
+  //console.log(starTwoResult);
   return starTwo;
 };

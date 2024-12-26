@@ -98,10 +98,8 @@ export const day6 = (data: string[], part: string) => {
 
     if (part == "1") {
         let starOneTotal = Object.keys(distinctPositions).length;
-        console.log(`Star 1 Result : ${starOneTotal} `);
-        return;
+        //console.log(`Star 1 Result : ${starOneTotal} `);
+        return starOneTotal;
     }
-
-
 
 }

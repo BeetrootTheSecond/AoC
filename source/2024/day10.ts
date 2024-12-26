@@ -68,13 +68,13 @@ export const day10 = (data: string[], part: string) => {
 
     if (part == '1') {
         let starOne = trailHeads.reduce((total, trailHead) => total += trailHead.score, 0);
-        console.log(`Star One : ${starOne}`);
+        //console.log(`Star One : ${starOne}`);
 
         return starOne;
     }
 
     let starTwo = trailHeads.reduce((total, trailHead) => total += trailHead.rating, 0);
-    console.log(`Star One : ${starTwo}`);
+    //console.log(`Star One : ${starTwo}`);
 
     return starTwo;
 }   

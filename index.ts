@@ -27,7 +27,7 @@ program.command('adventofcode')
         for (const [key, fn] of Object.entries(y2024)) {
             if (key.replace("day", "") == day) {
                 const startTime = performance.now();
-                let Result = fn(data, part);
+                let Result = fn(data, part) || 'Not Complete';
                 const endTime = performance.now();
 
                 let ResultMeta = { Year: parseInt(year), Day: parseInt(day), Part: parseInt(part), Result, Time: `${endTime - startTime} milliseconds`, Sample: option.sample };

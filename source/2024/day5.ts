@@ -55,8 +55,8 @@ export const day5 = (data: string[], part: string) => {
   if (part == "1") {
     let starOneTotal = correctPagesMiddles.reduce((total, p) => total += p);
 
-    console.log(`Star 1 Result : ${starOneTotal} `);
-    return;
+    //console.log(`Star 1 Result : ${starOneTotal} `);
+    return starOneTotal;
   }
 
 
@@ -106,6 +106,6 @@ export const day5 = (data: string[], part: string) => {
 
   let starTwoTotal = newlyCorrectedPages.reduce((total, p) => total += p);
 
-  console.log(`Star 2 Result : ${starTwoTotal}`);
-  return;
+  //console.log(`Star 2 Result : ${starTwoTotal}`);
+  return starTwoTotal;
 };
