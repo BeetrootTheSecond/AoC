@@ -1,21 +1,16 @@
-import { compass, Compass } from "../utilities/commonDirection";
+import { CardinalDirection, compass } from "../utilities/Compass";
 export const day1 = (data: string[], part: string) => {
-  let movements = data[0].split(", ").map((movement) => {
-    let splitMove = movement.split("");
-
-    return {
-      direction: splitMove[0],
-      distance: parseInt(movement.substring(1)),
-    };
-  });
+  let movements = data[0].split(", ").map((movement) => ({
+    direction: movement[0],
+    distance: parseInt(movement.substring(1)),
+  }));
 
   //console.log(movements);
 
-  const directionFacing = new compass(Compass.North);
+  const directionFacing = new compass(CardinalDirection.North);
   let movesNorth = 0;
   let movesEast = 0;
-  let grid: Record<string, number> = {};
-  let newGrid: Array<Array<number>> = [];
+  let pathPositions: Array<Array<number>> = [];
 
   for (let index = 0; index < movements.length; index++) {
     const move = movements[index];
@@ -28,36 +23,36 @@ export const day1 = (data: string[], part: string) => {
 
     for (let j = 0; j < move.distance; j++) {
       switch (directionFacing.currentDirection) {
-        case Compass.North: {
+        case CardinalDirection.North: {
           movesNorth += 1;
           break;
         }
-        case Compass.East: {
+        case CardinalDirection.East: {
           movesEast += 1;
           break;
         }
-        case Compass.South: {
+        case CardinalDirection.South: {
           movesNorth -= 1;
           break;
         }
-        case Compass.West: {
+        case CardinalDirection.West: {
           movesEast -= 1;
           break;
         }
       }
       if (part == "2") {
-        let northside = newGrid[movesNorth] || [];
-        northside[movesEast] = northside[movesEast]
-          ? northside[movesEast] + 1
+        let XPositions = pathPositions[movesNorth] || [];
+        XPositions[movesEast] = XPositions[movesEast]
+          ? XPositions[movesEast] + 1
           : 1;
-        newGrid[movesNorth] = northside;
-        if (northside[movesEast] == 2) {
+        pathPositions[movesNorth] = XPositions;
+        if (XPositions[movesEast] == 2) {
           break;
         }
       }
     }
     if (part == "2") {
-      if (newGrid[movesNorth][movesEast] == 2) {
+      if (pathPositions[movesNorth][movesEast] == 2) {
         break;
       }
     }
