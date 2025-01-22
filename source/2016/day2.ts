@@ -1,4 +1,4 @@
-import { Direction, Vector } from "../utilities/Vector";
+import { Vector } from "../utilities/Vector";
 
 export const day2 = (data: string[], part: string) => {
   const instructions = data.map((row) => row.split(""));
@@ -22,40 +22,40 @@ export const day2 = (data: string[], part: string) => {
   let position = part == "1" ? new Vector(1, 1) : new Vector(2, 0);
   let bathroomCode: Array<string | null> = [];
 
-  console.log(keypad[position.X][position.Y]);
+  console.log(keypad[position.x][position.y]);
   for (let index = 0; index < instructions.length; index++) {
     const line = instructions[index];
     line.forEach((move) => {
-      let direction = Direction.Up;
+      let direction = Vector.UP;
       switch (move) {
         case "U": {
-          direction = Direction.Up;
+          direction = Vector.UP;
           break;
         }
         case "D": {
-          direction = Direction.Down;
+          direction = Vector.DOWN;
           break;
         }
         case "L": {
-          direction = Direction.Left;
+          direction = Vector.LEFT;
           break;
         }
         case "R": {
-          direction = Direction.Right;
+          direction = Vector.RIGHT;
           break;
         }
       }
 
-      let savedPosition = position.copy();
-      position.moveVector(direction);
+      let savedPosition = position;
+      position = position.add(direction);
       if (
-        !(keypad[position.X] != null && keypad[position.X][position.Y] != null)
+        !(keypad[position.x] != null && keypad[position.x][position.y] != null)
       ) {
         position = savedPosition;
       }
     });
 
-    bathroomCode.push(keypad[position.X][position.Y]);
+    bathroomCode.push(keypad[position.x][position.y]);
   }
 
   let finalBathroomCode: string | null = bathroomCode.reduce(
