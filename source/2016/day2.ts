@@ -5,13 +5,22 @@ export const day2 = (data: string[], part: string) => {
 
   console.log(instructions);
 
-  let keypad: Array<Array<number>> = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-  ];
-  let position = new Vector(1, 1);
-  let bathroomCode: Array<number> = [];
+  let keypad: Array<Array<string | null>> =
+    part == "1"
+      ? [
+          ["1", "2", "3"],
+          ["4", "5", "6"],
+          ["7", "8", "9"],
+        ]
+      : [
+          [null, null, "1", null, null],
+          [null, "2", "3", "4", null],
+          ["5", "6", "7", "8", "9"],
+          [null, "A", "B", "C", null],
+          [null, null, "D", null, null],
+        ];
+  let position = part == "1" ? new Vector(1, 1) : new Vector(2, 0);
+  let bathroomCode: Array<string | null> = [];
 
   console.log(keypad[position.X][position.Y]);
   for (let index = 0; index < instructions.length; index++) {
@@ -49,7 +58,7 @@ export const day2 = (data: string[], part: string) => {
     bathroomCode.push(keypad[position.X][position.Y]);
   }
 
-  let finalBathroomCode: string = bathroomCode.reduce(
+  let finalBathroomCode: string | null = bathroomCode.reduce(
     (final, digit) => `${final}${digit}`,
     ""
   );
