@@ -9,7 +9,7 @@ export enum CardinalDirection {
   NorthWest = 7,
 }
 
-export class compass {
+export class Compass {
   currentDirection: CardinalDirection = 0;
   eightPointCompass: boolean = false;
 

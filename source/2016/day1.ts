@@ -1,4 +1,4 @@
-import { CardinalDirection, compass } from "../utilities/Compass";
+import { CardinalDirection, Compass } from "../utilities/Compass";
 export const day1 = (data: string[], part: string) => {
   let movements = data[0].split(", ").map((movement) => ({
     direction: movement[0],
@@ -7,7 +7,7 @@ export const day1 = (data: string[], part: string) => {
 
   //console.log(movements);
 
-  const directionFacing = new compass(CardinalDirection.North);
+  const directionFacing = new Compass(CardinalDirection.North);
   let movesNorth = 0;
   let movesEast = 0;
   let pathPositions: Array<Array<number>> = [];
