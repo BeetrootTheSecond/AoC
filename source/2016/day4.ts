@@ -17,6 +17,22 @@ export const day4 = (data: string[], part: string) => {
       .sort((a, b) => letterCounts[b] - letterCounts[a]);
     let newCheckSum = [...letters].splice(0, 5).join("");
 
+    let decodedName = words
+      .join(" ")
+      .split("")
+      .map((letter) => {
+        if (letter == " ") {
+          return letter;
+        }
+
+        let charNumber = letter.charCodeAt(0) - 97;
+
+        let shiftCipher = (charNumber + sectorID) % 26;
+        let newLetter = String.fromCharCode(shiftCipher + 97);
+        return newLetter;
+      })
+      .join("");
+
     let roomObj = {
       words,
       checkSum,
@@ -24,6 +40,7 @@ export const day4 = (data: string[], part: string) => {
       letters,
       newCheckSum,
       sectorID,
+      decodedName,
     };
 
     return roomObj;
@@ -33,5 +50,12 @@ export const day4 = (data: string[], part: string) => {
 
   let partone = realRooms.reduce((total, room) => total + room.sectorID, 0);
 
-  return partone;
+  if (part == "1") {
+    return partone;
+  }
+
+  let NorthRooms = realRooms.filter((room) =>
+    room.decodedName.includes("north")
+  );
+  return NorthRooms[0].sectorID;
 };
