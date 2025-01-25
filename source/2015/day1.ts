@@ -1,5 +1,10 @@
 export const day1 = (data: string[], part: string) => {
-  let EndFloors = data[0].split("").reduce((total, floorChar) => {
+  let part2 = 0;
+  let EndFloors = data[0].split("").reduce((total, floorChar, index) => {
+    if (total == -1 && part2 == 0) {
+      part2 = index;
+    }
+
     if (floorChar == "(") {
       return total + 1;
     }
@@ -9,4 +14,5 @@ export const day1 = (data: string[], part: string) => {
   if (part == "1") {
     return EndFloors;
   }
+  return part2;
 };
