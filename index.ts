@@ -11,7 +11,7 @@ const program = new Command();
 program
   .command("adventofcode")
   .description("")
-  .addArgument(new Argument("<year>", "Year").choices(["2016", "2024"]))
+  .addArgument(new Argument("<year>", "Year").choices(["2015", "2016", "2024"]))
   .addArgument(
     new Argument("<day>", "Day").choices(
       [...new Array(25)].map((_, i) => (i + 1).toString())
