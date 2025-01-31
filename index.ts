@@ -12,7 +12,7 @@ program
   .command("adventofcode")
   .description("")
   .addArgument(
-    new Argument("<year>", "Year").choices(["2015", "2016", "2017","2018", "2024"])
+    new Argument("<year>", "Year").choices(["2015", "2016", "2017","2018", "2019","2024"])
   )
   .addArgument(
     new Argument("<day>", "Day").choices(
